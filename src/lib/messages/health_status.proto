@@ -1,0 +1,26 @@
+syntax = "proto2";
+
+import "dccl/option_extensions.proto";
+
+package goby3_course.protobuf;
+message HealthStatus
+{
+    option (dccl.msg) = {
+        codec_version: 3
+        id: 125
+        max_bytes: 32
+        unit_system: "si"
+    };
+    enum HealthState
+    {
+        GOOD = 1;
+        DEGRADED = 2;
+        FAILING = 3;
+        FAILED = 4;
+    }
+    required HealthState state = 1;
+    required uint64 timestamp = 2 [(dccl.field) = {
+        codec: "dccl.time2"
+        units { prefix: "micro" base_dimensions: "T" }
+    }];
+}
